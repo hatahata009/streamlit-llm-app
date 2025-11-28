@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import os
@@ -27,7 +27,7 @@ def get_expert_response(user_input, expert_type):
         input_variables=["user_input"],
         template=f"{system_message}\n\n質問: {{user_input}}\n回答:"
     )
-    llm = OpenAI(model_name="gpt-4o-mini", temperature=0.7, openai_api_key=OPENAI_API_KEY)
+    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7, openai_api_key=OPENAI_API_KEY)
     chain = LLMChain(llm=llm, prompt=prompt)
     response = chain.run(user_input=user_input)
     return response
